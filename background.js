@@ -15,29 +15,28 @@ async function getCountryFromIp(ip) {
 async function updateFlagIcon(tabId) {
     const newIp = await getIpAddress();
 
-    // Проверяем, изменился ли IP
     if (newIp !== currentIp) {
-        currentIp = newIp;  // Обновляем текущий IP
+        currentIp = newIp;
         const country = await getCountryFromIp(newIp);
-
-        // Загружаем и устанавливаем иконку флага
         const iconUrl = `https://flagcdn.com/48x36/${country.toLowerCase()}.png`;
 
-        // Показываем page_action иконку в URL-баре
+        // Устанавливаем новую иконку в URL-баре
         browser.pageAction.setIcon({ tabId: tabId, path: iconUrl });
         browser.pageAction.setTitle({ tabId: tabId, title: `IP: ${newIp}` });
-        browser.pageAction.show(tabId);  // Активируем иконку в URL-баре
+        browser.pageAction.show(tabId);  // Активируем иконку
     }
 }
 
-// Обрабатываем обновление при активации вкладки
-browser.tabs.onActivated.addListener(async (activeInfo) => {
-    updateFlagIcon(activeInfo.tabId);
-});
-
-// Обрабатываем обновление при загрузке страницы
+// Обработка обновления при загрузке страниц
 browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (changeInfo.status === 'complete') {
         updateFlagIcon(tabId);
+    }
+});
+
+// Добавляем обработчик для сообщения на обновление флага вручную
+browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.type === 'updateFlag') {
+        updateFlagIcon(message.tabId);  // Обновляем флаг для указанной вкладки
     }
 });
