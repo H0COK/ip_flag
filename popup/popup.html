@@ -11,13 +11,19 @@
         .info {
             padding: 10px;
         }
+
+        button {
+            margin-top: 10px;
+            padding: 5px 10px;
+        }
     </style>
 </head>
 
 <body>
     <div class="info">
-        <h3>Ваш IP:</h3>
-        <p id="ip-address">Загрузка...</p>
+        <h3>IP Flag Extension</h3>
+        <p id="status-text">Загрузка состояния...</p>
+        <button id="toggle-extension">Загрузка...</button> <!-- Кнопка включения/выключения -->
     </div>
     <script src="popup.js"></script>
 </body>
