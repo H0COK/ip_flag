@@ -3,40 +3,45 @@ document.addEventListener('DOMContentLoaded', async () => {
     const locationElement = document.getElementById('location');
     const regionElement = document.getElementById('region');
     const cityElement = document.getElementById('city');
-    const timezoneElement = document.getElementById('timezone');
+    const currentTimeElement = document.getElementById('currentTime');
     const orgElement = document.getElementById('org');
 
     try {
-        // Получаем IP-адрес с помощью ipify
+        // Get IP address using ipify
         const ipResponse = await fetch('https://api.ipify.org?format=json');
         if (!ipResponse.ok) {
-            throw new Error(`Ошибка: IPify API вернуло статус ${ipResponse.status}`);
+            throw new Error(`Error: IPify API returned status ${ipResponse.status}`);
         }
         const ipData = await ipResponse.json();
         const ip = ipData.ip;
-        ipElement.textContent = ip;  // Обновляем IP на странице
+        ipElement.textContent = ip;  // Update IP on the page
 
-        // Теперь используем ipapi.co для получения информации по IP
+        // Now use ipapi.co to get information by IP
         const infoResponse = await fetch(`https://ipapi.co/${ip}/json/`);
         if (!infoResponse.ok) {
-            throw new Error(`Ошибка: ipapi.co API вернуло статус ${infoResponse.status}`);
+            throw new Error(`Error: ipapi.co API returned status ${infoResponse.status}`);
         }
         const infoData = await infoResponse.json();
 
-        // Обновляем остальные данные на странице
+        // Update other data on the page
         locationElement.textContent = infoData.country_name;
         regionElement.textContent = infoData.region;
         cityElement.textContent = infoData.city;
-        timezoneElement.textContent = infoData.timezone;
+
+        // Format current time information
+        const timezone = infoData.timezone;
+        const currentTime = new Date().toLocaleString("en-US", { timeZone: timezone, hour: '2-digit', minute: '2-digit', hour12: true });
+        currentTimeElement.textContent = currentTime;
+
         orgElement.textContent = infoData.org;
 
     } catch (error) {
-        console.error("Ошибка при получении данных:", error.message);
-        ipElement.textContent = "Ошибка";
-        locationElement.textContent = "Ошибка";
-        regionElement.textContent = "Ошибка";
-        cityElement.textContent = "Ошибка";
-        timezoneElement.textContent = "Ошибка";
-        orgElement.textContent = "Ошибка";
+        console.error("Error while getting data:", error.message);
+        ipElement.textContent = "Error";
+        locationElement.textContent = "Error";
+        regionElement.textContent = "Error";
+        cityElement.textContent = "Error";
+        currentTimeElement.textContent = "Error";
+        orgElement.textContent = "Error";
     }
 });

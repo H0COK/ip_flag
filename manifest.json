@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "IP Flag Extension",
   "version": "1.0",
-  "description": "Отображает флаг текущего IP в URL-баре и показывает IP при наведении.",
+  "description": "Displays the flag of the current IP in the URL bar and shows IP on hover.",
   "permissions": [
     "activeTab",
     "https://api.ipify.org/",
@@ -19,7 +19,8 @@
     "default_title": "Your IP Address",
     "default_icon": {
       "48": "icons/icon-48.png"
-    }
+    },
+    "default_popup": "popup/popup.html"
   },
   "icons": {
     "48": "icons/icon-48.png",

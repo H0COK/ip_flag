@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
     <style>
         body {
             width: 250px;
@@ -23,14 +24,14 @@
 </head>
 
 <body>
-    <div class="info">
-        <h3>Информация о вашем IP</h3>
-        <p><strong>IP:</strong> <span id="ip">Загрузка...</span></p>
-        <p><strong>Местоположение:</strong> <span id="location">Загрузка...</span></p>
-        <p><strong>Регион:</strong> <span id="region">Загрузка...</span></p>
-        <p><strong>Город:</strong> <span id="city">Загрузка...</span></p>
-        <p><strong>Часовой пояс:</strong> <span id="timezone">Загрузка...</span></p>
-        <p><strong>Организация (DNS):</strong> <span id="org">Загрузка...</span></p>
+    <div class="info" id="popup">
+        <h3>Information about your IP</h3>
+        <p><strong>IP:</strong> <span id="ip">Loading...</span></p>
+        <p><strong>Location:</strong> <span id="location">Loading...</span></p>
+        <p><strong>Region:</strong> <span id="region">Loading...</span></p>
+        <p><strong>City:</strong> <span id="city">Loading...</span></p>
+        <p><strong>Current time:</strong> <span id="currentTime">Loading...</span></p>
+        <p><strong>Organization (DNS):</strong> <span id="org">Loading...</span></p>
     </div>
     <script src="popup.js"></script>
 </body>
