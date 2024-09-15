@@ -23,6 +23,7 @@ async function updateFlagIcon(tabId) {
         // Проверяем, включено ли расширение
         const { isEnabled } = await browser.storage.local.get('isEnabled');
 
+<<<<<<< HEAD
         if (isEnabled === false) {
             // Если выключено, скрываем иконку
             browser.pageAction.hide(tabId);
@@ -58,15 +59,37 @@ browser.tabs.onActivated.addListener(async (activeInfo) => {
 });
 
 // Обработчик для обновления страницы
+=======
+    if (newIp !== currentIp) {
+        currentIp = newIp;
+        const country = await getCountryFromIp(newIp);
+        const iconUrl = `https://flagcdn.com/48x36/${country.toLowerCase()}.png`;
+
+        // Устанавливаем новую иконку в URL-баре
+        browser.pageAction.setIcon({ tabId: tabId, path: iconUrl });
+        browser.pageAction.setTitle({ tabId: tabId, title: `IP: ${newIp}` });
+        browser.pageAction.show(tabId);  // Активируем иконку
+    }
+}
+
+// Обработка обновления при загрузке страниц
+>>>>>>> 5a89017ca5fef64770ea10665ebb9449af420e39
 browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (changeInfo.status === 'complete') {
         updateFlagIcon(tabId);
     }
 });
 
+<<<<<<< HEAD
 // Инициализация иконки при запуске расширения
 browser.tabs.query({}).then(tabs => {
     for (let tab of tabs) {
         updateFlagIcon(tab.id);
+=======
+// Добавляем обработчик для сообщения на обновление флага вручную
+browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.type === 'updateFlag') {
+        updateFlagIcon(message.tabId);  // Обновляем флаг для указанной вкладки
+>>>>>>> 5a89017ca5fef64770ea10665ebb9449af420e39
     }
 });
