@@ -1,17 +1,17 @@
 # Firefox IP Flag Extension
 
-Это расширение для браузера Firefox отображает флаг страны на основе вашего текущего IP-адреса в URL-баре. Также при наведении курсора на иконку флага, вы увидите свой IP-адрес. Расширение использует открытые API для получения IP-адреса и определения страны.
+This Firefox browser extension displays the country flag based on your current IP address in the URL bar. Also, when you hover over the flag icon, you will see your IP address. The extension uses open APIs to get an IP address and determine the country.
 
-## Функциональность
+## Functionality
 
-- Отображает флаг страны в URL-баре на основе IP-адреса.
-- Показывает IP-адрес при наведении на иконку.
-- Возможность ручного обновления флага через всплывающее окно.
-- Поддержка API: [ipify](https://www.ipify.org) для получения IP и [ipinfo](https://ipinfo.io) для определения страны.
+- Displays the country flag in the URL bar based on IP addresses.
+- Shows the IP address when hovering over the icon.
+- The ability to manually update the flag through a pop-up window.
+- API support: [ipify](https://www.ipify.org ) to get the IP and [ipinfo](https://ipinfo.io ) to determine the country.
 
-## Установка
+## Installation
 
-1. Склонируйте репозиторий к себе локально:
+1. Tilt the repository to yourself locally:
 
 ```bash
 git clone https://github.com/H0COK/ip_flag.git
