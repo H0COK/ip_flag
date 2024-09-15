@@ -1,58 +1,42 @@
 document.addEventListener('DOMContentLoaded', async () => {
-<<<<<<< HEAD
-    const statusText = document.getElementById('status-text');
-    const toggleButton = document.getElementById('toggle-extension');
+    const ipElement = document.getElementById('ip');
+    const locationElement = document.getElementById('location');
+    const regionElement = document.getElementById('region');
+    const cityElement = document.getElementById('city');
+    const timezoneElement = document.getElementById('timezone');
+    const orgElement = document.getElementById('org');
 
-    // Получаем текущее состояние расширения из хранилища
-    const { isEnabled } = await browser.storage.local.get('isEnabled');
-
-    // Обновляем интерфейс в зависимости от состояния
-    updateUI(isEnabled !== false);  // По умолчанию включено, если не установлено в хранилище
-
-    // Добавляем обработчик для переключения состояния
-    toggleButton.addEventListener('click', async () => {
-        const { isEnabled } = await browser.storage.local.get('isEnabled');
-        const newState = !isEnabled;  // Меняем текущее состояние
-
-        // Сохраняем новое состояние в хранилище
-        await browser.storage.local.set({ isEnabled: newState });
-
-        // Обновляем интерфейс
-        updateUI(newState);
-    });
-
-    // Функция для обновления интерфейса в popup
-    function updateUI(isEnabled) {
-        if (isEnabled) {
-            statusText.textContent = "Расширение включено";
-            toggleButton.textContent = "Выключить";
-        } else {
-            statusText.textContent = "Расширение выключено";
-            toggleButton.textContent = "Включить";
+    try {
+        // Получаем IP-адрес с помощью ipify
+        const ipResponse = await fetch('https://api.ipify.org?format=json');
+        if (!ipResponse.ok) {
+            throw new Error(`Ошибка: IPify API вернуло статус ${ipResponse.status}`);
         }
+        const ipData = await ipResponse.json();
+        const ip = ipData.ip;
+        ipElement.textContent = ip;  // Обновляем IP на странице
+
+        // Теперь используем ipapi.co для получения информации по IP
+        const infoResponse = await fetch(`https://ipapi.co/${ip}/json/`);
+        if (!infoResponse.ok) {
+            throw new Error(`Ошибка: ipapi.co API вернуло статус ${infoResponse.status}`);
+        }
+        const infoData = await infoResponse.json();
+
+        // Обновляем остальные данные на странице
+        locationElement.textContent = infoData.country_name;
+        regionElement.textContent = infoData.region;
+        cityElement.textContent = infoData.city;
+        timezoneElement.textContent = infoData.timezone;
+        orgElement.textContent = infoData.org;
+
+    } catch (error) {
+        console.error("Ошибка при получении данных:", error.message);
+        ipElement.textContent = "Ошибка";
+        locationElement.textContent = "Ошибка";
+        regionElement.textContent = "Ошибка";
+        cityElement.textContent = "Ошибка";
+        timezoneElement.textContent = "Ошибка";
+        orgElement.textContent = "Ошибка";
     }
-=======
-    const ipElement = document.getElementById('ip-address');
-    const button = document.getElementById('update-flag');
-
-    // Функция для получения IP
-    async function getIpAddress() {
-        const response = await fetch('https://api.ipify.org?format=json');
-        const data = await response.json();
-        return data.ip;
-    }
-
-    // Обновляем IP при загрузке popup
-    const ip = await getIpAddress();
-    ipElement.textContent = ip;
-
-    // Обработчик нажатия кнопки обновления флага
-    button.addEventListener('click', async () => {
-        // Получаем текущий активный tab
-        const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
-
-        // Обновляем флаг вручную
-        browser.runtime.sendMessage({ type: 'updateFlag', tabId: tab.id });
-    });
->>>>>>> 5a89017ca5fef64770ea10665ebb9449af420e39
 });

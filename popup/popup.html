@@ -4,7 +4,7 @@
 <head>
     <style>
         body {
-            width: 200px;
+            width: 250px;
             font-family: Arial, sans-serif;
         }
 
@@ -12,18 +12,25 @@
             padding: 10px;
         }
 
-        button {
-            margin-top: 10px;
-            padding: 5px 10px;
+        .info p {
+            margin: 5px 0;
+        }
+
+        h3 {
+            margin-top: 0;
         }
     </style>
 </head>
 
 <body>
     <div class="info">
-        <h3>IP Flag Extension</h3>
-        <p id="status-text">Загрузка состояния...</p>
-        <button id="toggle-extension">Загрузка...</button> <!-- Кнопка включения/выключения -->
+        <h3>Информация о вашем IP</h3>
+        <p><strong>IP:</strong> <span id="ip">Загрузка...</span></p>
+        <p><strong>Местоположение:</strong> <span id="location">Загрузка...</span></p>
+        <p><strong>Регион:</strong> <span id="region">Загрузка...</span></p>
+        <p><strong>Город:</strong> <span id="city">Загрузка...</span></p>
+        <p><strong>Часовой пояс:</strong> <span id="timezone">Загрузка...</span></p>
+        <p><strong>Организация (DNS):</strong> <span id="org">Загрузка...</span></p>
     </div>
     <script src="popup.js"></script>
 </body>

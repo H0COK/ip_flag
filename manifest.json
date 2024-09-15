@@ -6,7 +6,8 @@
   "permissions": [
     "activeTab",
     "https://api.ipify.org/",
-    "https://ipinfo.io/"
+    "https://ipinfo.io/",
+    "storage"
   ],
   "background": {
     "scripts": [
